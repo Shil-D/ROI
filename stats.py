@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 def max_dd(ser):
     max2here = ser.expanding().max()
     dd2here = ser - max2here
-    return dd2here.min()
+    return -dd2here.min()
 
 def max_ddd(ser):
     ddd = ser.copy()
@@ -46,7 +46,7 @@ def main(base_file, risk_free_file):
     mdd = max_dd(cum_rets)
     mddd = max_ddd(cum_rets)
     props = dict(boxstyle= 'round', facecolor='wheat', alpha=0.5)
-    textstr = 'Sharpe = %.2f\nMaxDD = %d\nMaxDDD = %d' % (sharpe, mdd, mddd)
+    textstr = 'Sharpe = %.2f\nMaxDD = %.3f%%\nMaxDDD = %d' % (sharpe, mdd*100, mddd)
     fig, ax = plt.subplots(1)
     cum_rets.plot(ax = ax)
     ax.text(0.05, 0.95, textstr, transform=ax.transAxes, fontsize=14,
